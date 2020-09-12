@@ -7,7 +7,9 @@ Vue.use(Vuex)
 let store = new Vuex.Store({
   state: {
     palindromes: [],
-    loggedIn: false
+    loggedIn: false,
+    username: 'admin',
+    password: 'Admin12345'
   },
   mutations: {
     palindromes: (state, data) => state.palindromes.push(data),
@@ -15,7 +17,9 @@ let store = new Vuex.Store({
   },
   getters: {
     palindromes: (state) => state.palindromes,
-    loggedIn: (state) => state.loggedIn
+    loggedIn: (state) => state.loggedIn,
+    username: (state) => state.username,
+    password: (state) => state.password
   }
 });
 

@@ -2,8 +2,11 @@
   <div class="login-form-container">
     <p class="form-title">Palindrome checker</p>
     <p class="form-description">Login</p>
+    <transition name="slide">
+      <p v-if="invalidData" class="invalid-data-message">Username or password is incorrect</p>
+    </transition>
     <form class="form" @submit.prevent="submitForm" autocomplete="off">
-      <div :class="['input-box', usernameInvalid ? 'error' : '']">
+      <div :class="['input-box', usernameInvalid || invalidData ? 'error' : '']">
         <input
           type="text"
           id="username"
@@ -19,9 +22,9 @@
           </transition>
         </div>
       </div>
-      <div :class="['input-box', passwordInvalid ? 'error' : '']">
+      <div :class="['input-box', passwordInvalid || invalidData ? 'error' : '']">
         <input
-          type="password"
+          :type="seePassword ? 'text' : 'password'"
           id="password"
           name="password"
           v-model="form.password"
@@ -29,6 +32,19 @@
           @input="checkPassword"
         />
         <label for="password">Password</label>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          :style="seePassword ? 'fill: #2196f3;' : 'fill: #757575;'"
+          width="20"
+          height="20"
+          viewBox="0 0 488.85 488.85"
+          class="see-password"
+          @click="seePassword = !seePassword"
+        >
+          <path
+            d="M244.425,98.725c-93.4,0-178.1,51.1-240.6,134.1c-5.1,6.8-5.1,16.3,0,23.1c62.5,83.1,147.2,134.2,240.6,134.2   s178.1-51.1,240.6-134.1c5.1-6.8,5.1-16.3,0-23.1C422.525,149.825,337.825,98.725,244.425,98.725z M251.125,347.025   c-62,3.9-113.2-47.2-109.3-109.3c3.2-51.2,44.7-92.7,95.9-95.9c62-3.9,113.2,47.2,109.3,109.3   C343.725,302.225,302.225,343.725,251.125,347.025z M248.025,299.625c-33.4,2.1-61-25.4-58.8-58.8c1.7-27.6,24.1-49.9,51.7-51.7 c33.4-2.1,61,25.4,58.8,58.8C297.925,275.625,275.525,297.925,248.025,299.625z"
+          />
+        </svg>
         <div class="hint-message">
           <transition name="slide">
             <p v-if="passwordInvalid">Incorrect password</p>
@@ -57,6 +73,8 @@ export default {
       },
       usernameInvalid: false,
       passwordInvalid: false,
+      invalidData: false,
+      seePassword: false,
     };
   },
   validations: {
@@ -81,8 +99,18 @@ export default {
     },
     submitForm() {
       if (!this.$v.form.$invalid) {
-        this.$store.commit("loggedIn", true);
-        this.$router.push({ name: "PalindromeChecker" });
+        if (
+          this.form.username == this.$store.getters.username &&
+          this.form.password == this.$store.getters.password
+        ) {
+          this.$store.commit("loggedIn", true);
+          this.$router.push({ name: "PalindromeChecker" });
+        } else {
+          this.invalidData = true;
+          setTimeout(() => {
+            this.invalidData = false;
+          }, 5000);
+        }
       }
     },
   },
@@ -95,6 +123,7 @@ export default {
   max-width: 400px;
   padding: 36px 16px;
   background-color: #ffffff;
+  overflow: hidden;
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px 0 rgba(0, 0, 0, 0.14),
     0 1px 14px 0 rgba(0, 0, 0, 0.12) !important;
 
@@ -111,6 +140,15 @@ export default {
     margin-bottom: 36px;
   }
 
+  .invalid-data-message {
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #ef5350;
+    padding: 16px;
+    color: #ffffff;
+    margin-bottom: 36px;
+  }
+
   .form {
     .input-box {
       position: relative;
@@ -120,11 +158,16 @@ export default {
         padding: 10px 0;
         font-size: 16px;
         margin-bottom: 36px;
+        box-sizing: border-box;
         border: none;
         border-bottom: 1px solid #e0e0e0;
         outline: none;
         background-color: transparent;
         transition: 0.3s;
+
+        &[type="password"] {
+          padding-right: 32px;
+        }
 
         &:focus,
         &:valid {
@@ -176,6 +219,13 @@ export default {
         input {
           border-color: #f44336;
         }
+      }
+
+      .see-password {
+        position: absolute;
+        cursor: pointer;
+        right: 0;
+        top: 10px;
       }
     }
 
