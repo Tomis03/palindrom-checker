@@ -156,7 +156,6 @@ export default {
       &:active {
         transform: scale(0.95);
       }
-      cursor: default;
     }
   }
 
