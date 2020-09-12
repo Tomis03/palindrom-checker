@@ -13,6 +13,10 @@ const routes = [
     path: '/palindrome-checker',
     name: 'PalindromeChecker',
     component: () => import('@/views/PalindromeChecker.vue')
+  },
+  {
+    path: "*",
+    redirect: '/'
   }
 ]
 
