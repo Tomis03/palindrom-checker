@@ -1,5 +1,5 @@
 <template>
-  <div class="palindrome-checker">
+  <div v-if="this.$store.getters.loggedIn" class="palindrome-checker">
     <div class="checker-container">
       <p class="checker-title">Check if string is palindrome:</p>
       <div class="new-palindrome-container">
@@ -42,6 +42,9 @@ export default {
       var reversedString = lowerCaseString.split("").reverse().join("");
       return reversedString === lowerCaseString;
     },
+  },
+  created() {
+    this.$store.getters.loggedIn ? "" : this.$router.push({ name: "Login" });
   },
 };
 </script>

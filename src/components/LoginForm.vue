@@ -81,6 +81,7 @@ export default {
     },
     submitForm() {
       if (!this.$v.form.$invalid) {
+        this.$store.commit("loggedIn", true);
         this.$router.push({ name: "PalindromeChecker" });
       }
     },
