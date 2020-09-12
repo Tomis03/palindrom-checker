@@ -1,5 +1,5 @@
 <template>
-  <div class="login-form">
+  <div class="login-form-container">
     <p class="form-title">Palindrome checker</p>
     <p class="form-description">Login</p>
     <form class="form" @submit.prevent="submitForm" autocomplete="off">
@@ -89,7 +89,7 @@ export default {
 </script>
 
 <style lang="scss">
-.login-form {
+.login-form-container {
   width: 100%;
   max-width: 400px;
   padding: 36px 16px;
@@ -216,6 +216,7 @@ export default {
   .slide-leave-active {
     transition: opacity 0.3s, transform 0.3s;
   }
+
   .slide-enter,
   .slide-leave-to {
     transform: translateX(-100%);
