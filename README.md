@@ -11,4 +11,4 @@
 <li>Run <code>npm run test:unit</code> to run tests</li>
 </ol>
 <h2>Demo</h2>
-See demo of Palindrome checker on Github Pages - https://tomis03.github.io/food-app/
+See demo of Palindrome checker on Github Pages - https://tomis03.github.io/palindrome-checker/
