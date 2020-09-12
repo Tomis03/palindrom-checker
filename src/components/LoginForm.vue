@@ -74,6 +74,7 @@ export default {
       usernameInvalid: false,
       passwordInvalid: false,
       invalidData: false,
+      invalidDataTimeout: null,
       seePassword: false,
     };
   },
@@ -111,7 +112,8 @@ export default {
           this.$router.push({ name: "PalindromeChecker" });
         } else {
           this.invalidData = true;
-          setTimeout(() => {
+          if (this.invalidDataTimeout) clearTimeout(this.invalidDataTimeout);
+          this.invalidDataTimeout = setTimeout(() => {
             this.invalidData = false;
           }, 5000);
         }
