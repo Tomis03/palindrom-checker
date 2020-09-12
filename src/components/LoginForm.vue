@@ -97,6 +97,10 @@ export default {
     checkPassword() {
       this.passwordInvalid = this.$v.form.password.$invalid;
     },
+    // Client-side validation is not a correct way to validate data. It's dangerous, because you can
+    // get around it without much effort. The process of submitting the form may be faked.
+    // It is never certain that the data that comes to the server is safe. Correct data validation
+    // should be on the server side. Client-side validation is to improve the usability of the form.
     submitForm() {
       if (!this.$v.form.$invalid) {
         if (
