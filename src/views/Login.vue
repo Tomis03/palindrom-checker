@@ -24,7 +24,7 @@ export default {
   background: linear-gradient(
     135deg,
     rgba(33, 150, 243, 1) 0%,
-    rgba(0, 224, 255, 1) 100%
+    rgba(0, 255, 119, 1) 100%
   );
 }
 </style>

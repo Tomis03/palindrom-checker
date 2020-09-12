@@ -8,6 +8,11 @@ const routes = [
     path: '/',
     name: 'Login',
     component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/palindrome-checker',
+    name: 'PalindromeChecker',
+    component: () => import('../views/PalindromeChecker.vue')
   }
 ]
 
